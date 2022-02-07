@@ -35,16 +35,9 @@ header("Pragma: no-cache"); // HTTP/1.0
 <html lang="ko">
 <head>
 <meta charset="utf-8">
+<!-- 반응형을위한 메타뷰포트태그 삽입 -->
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
 <?php
-if (G5_IS_MOBILE) {
-    echo '<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=yes">'.PHP_EOL;
-    echo '<meta name="HandheldFriendly" content="true">'.PHP_EOL;
-    echo '<meta name="format-detection" content="telephone=no">'.PHP_EOL;
-} else {
-    echo '<meta http-equiv="imagetoolbar" content="no">'.PHP_EOL;
-    echo '<meta http-equiv="X-UA-Compatible" content="IE=edge">'.PHP_EOL;
-}
-
 if($config['cf_add_meta'])
     echo $config['cf_add_meta'].PHP_EOL;
 ?>
@@ -89,13 +82,31 @@ if (defined('_SHOP_')) {
 add_javascript('<script src="'.G5_JS_URL.'/common.js?ver='.G5_JS_VER.'"></script>', 0);
 add_javascript('<script src="'.G5_JS_URL.'/wrest.js?ver='.G5_JS_VER.'"></script>', 0);
 add_javascript('<script src="'.G5_JS_URL.'/placeholders.min.js"></script>', 0);
-add_stylesheet('<link rel="stylesheet" href="'.G5_JS_URL.'/font-awesome/css/font-awesome.min.css">', 0);
+// 모달플러그인
+add_javascript('<script src="'.G5_THEME_URL.'/plugin/modaal/modaal.js"></script>', 1);
+add_javascript('<script src="'.G5_THEME_URL.'/plugin/modaal/modaal.min.js"></script>', 1);
+add_stylesheet('<link rel="stylesheet" href="'.G5_THEME_URL.'/plugin/modaal/modaal.css">', 1);
+// bxslider
+add_javascript('<script src="'.G5_THEME_URL.'/plugin/bxslider/jquery.bxslider.min.js"></script>', 1);
+add_stylesheet('<link rel="stylesheet" href="'.G5_THEME_URL.'/plugin/bxslider/jquery.bxslider.min.css">', 1);
+// fontawesome
+// fontawesome-pro-5.15.4 적용 4버전 매핑 심추가
+add_stylesheet('<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">', 1);
+add_stylesheet('<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/v4-shims.css">', 1);
+// fontawesome-pro-5.9.0 프로버전 사용시 라이센스필요
+// add_stylesheet('<link rel="stylesheet" href="'.G5_THEME_URL.'/plugin/fontawesome-pro-5.15.3-web/css/all.css">', 1);
+// fontawesome 그누보드 내장버전 사용시
+// add_stylesheet('<link rel="stylesheet" href="'.G5_JS_URL.'/font-awesome/css/font-awesome.min.css">', 1);
 
 if(G5_IS_MOBILE) {
     add_javascript('<script src="'.G5_JS_URL.'/modernizr.custom.70111.js"></script>', 1); // overflow scroll 감지
 }
 if(!defined('G5_IS_ADMIN'))
     echo $config['cf_add_script'];
+?>
+<!-- gnb plugin 추가 -->
+<?php 
+include_once(G5_THEME_PATH.'/plugin/menu/menu.php'); 
 ?>
 </head>
 <body<?php echo isset($g5['body_script']) ? $g5['body_script'] : ''; ?>>
